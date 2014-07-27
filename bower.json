@@ -1,0 +1,10 @@
+{
+	"name": "coffee-backbone-seed",
+ 	"version": "0.1",
+ 	"main": "index.html",
+	"dependencies": {
+		"backbone": "latest",
+		"bootstrap": "latest",
+		"mustache": "latest"
+	}
+}
