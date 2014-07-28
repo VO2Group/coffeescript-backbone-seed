@@ -1,13 +1,13 @@
 class Router extends Backbone.Router
 
 	routes:
-		"": "list"
-		"item/:num": "item"
+		"": "items"
+		"item/:id": "item"
 
-	list: ->
-		view = new ListView collection: new List
+	items: ->
+		view = new ItemsView collection: new Items
 		view.render()
 
-	item: (num) ->
-		view = new ItemView model: new Item num: num
+	item: (id) ->
+		view = new ItemView model: new Item id: id
 		view.render()

@@ -9,16 +9,16 @@ app.use express.static path.join __dirname, 'app'
 
 data = [
 	{
-		num: 0
+		id: 0
 		name: "zero"
 	}
 	{
-		num: 1
+		id: 1
 		name: "one"
 	}	
 ]
 
-app.get '/list', (req, res, next) ->
+app.get '/items', (req, res, next) ->
 	res.json data
 
 app.listen 8080

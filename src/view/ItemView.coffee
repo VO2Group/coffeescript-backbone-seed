@@ -5,7 +5,7 @@ class ItemView extends Backbone.View
 	html: """
 		<h1>Item</h1>
 		<p>
-			num: {{num}}
+			id: {{id}}
 			name: {{name}}
 		</p>
 		"""

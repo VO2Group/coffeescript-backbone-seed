@@ -1,4 +1,4 @@
-class ListView extends Backbone.View
+class ItemsView extends Backbone.View
 
 	el: 'body'
 
@@ -10,19 +10,20 @@ class ListView extends Backbone.View
 		<button id="add">Add</button>
 		<ul>
 			{{#list}}
-				<li><a href="#/item/{{num}}">{{num}}: {{name}}</a></li>
+				<li><a href="#/item/{{id}}">{{id}}: {{name}}</a></li>
 			{{/list}}
 		</ul>
 		"""
 
 	initialize: ->
 		@collection.on 'change', @render
-		@render()
+		@collection.on 'reset', @render
+		@collection.fetch reset: true
 
 	render: =>
 		@$el.html Mustache.render @html, list: @collection.toJSON()
 		@
 
 	add: ->
-		@collection.add new Item
+		@collection.push new Item id: @collection.length + 1
 		@collection.trigger 'change'
