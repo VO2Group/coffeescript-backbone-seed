@@ -10,7 +10,7 @@ class ItemsView extends Backbone.View
 		<button id="add">Add</button>
 		<ul>
 			{{#list}}
-				<li><a href="#/item/{{id}}">{{id}}: {{name}}</a></li>
+				<li><a href="#/item/{{id}}">{{name}}</a></li>
 			{{/list}}
 		</ul>
 		"""
@@ -28,3 +28,4 @@ class ItemsView extends Backbone.View
 		item = new Item id: @collection.length
 		item.save()
 		@collection.fetch reset: true
+

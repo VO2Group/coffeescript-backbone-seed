@@ -4,7 +4,7 @@ fs = require 'fs'
 {spawn} = require 'child_process'
 
 task 'build', 'Build js/main.js from coffee/', ->
-	compile
+	compile()
 
 task 'watch', 'Watch coffee/ for changes', ->
 	compile true
