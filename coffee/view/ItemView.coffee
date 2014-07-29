@@ -11,8 +11,10 @@ class ItemView extends Backbone.View
 		"""
 
 	initialize: ->
-		@render()
+		@model.on 'change', @render
+		@model.on 'reset', @render
+		@model.fetch reset: true
 
-	render: ->
+	render: =>
 		@$el.html Mustache.render @html, @model.toJSON()
 		@

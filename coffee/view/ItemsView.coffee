@@ -25,5 +25,6 @@ class ItemsView extends Backbone.View
 		@
 
 	add: ->
-		@collection.push new Item id: @collection.length + 1
-		@collection.trigger 'change'
+		item = new Item id: @collection.length
+		item.save()
+		@collection.fetch reset: true
