@@ -3,26 +3,24 @@ class ItemView extends Backbone.View
 	el: 'body'
 
 	events:
-		'click #delete': 'delete'
+		'click #save': 'save'
 
-	html: """
+	template: """
 		<h1>Item</h1>
 		<p>
-			id: {{id}}
-			name: {{name}}
+			name: <input id="field" type="text" value="{{name}}"/> <button id="save" type="button" class="btn btn-default btn-xs">Save</button>
 		</p>
-		<button id="delete" href="">Delete</button>
+		<a href="">Back</a>
 		"""
 
 	initialize: ->
-		@model.on 'change', @render
-		@model.on 'reset', @render
+		@model.on 'reset change', @render
 		@model.fetch reset: true
 
 	render: =>
-		@$el.html Mustache.render @html, @model.toJSON()
+		@$el.html Mustache.render @template, @model.toJSON()
 		@
 
-	delete: ->
-		@model.destroy wait: true
-		window.location.hash = ""
+	save: (event) ->
+		@model.set name: @$('#field').val()
+		@model.save()

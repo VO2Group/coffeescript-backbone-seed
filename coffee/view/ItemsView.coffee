@@ -4,28 +4,45 @@ class ItemsView extends Backbone.View
 
 	events:
 		'click #add': 'add'
+		'click .edit': 'edit'
+		'click .delete': 'delete'
 
-	html: """
+	template: """
 		<h1>List</h1>
-		<button id="add">Add</button>
+		<p>
+			<button id="add" class="btn btn-default btn-xs">Add</button>
+		</p>
 		<ul>
-			{{#list}}
-				<li><a href="#/item/{{id}}">{{name}}</a></li>
-			{{/list}}
+			{{#items}}
+				<li>
+					<p>{{name}}</p>
+					<p data-item="{{id}}">
+						<button type="button" class="btn btn-default btn-xs edit">Edit</button>
+						<button type="button" class="btn btn-default btn-xs delete">Delete</button>
+					</p>
+				</li>
+			{{/items}}
 		</ul>
 		"""
 
 	initialize: ->
-		@collection.on 'change', @render
 		@collection.on 'reset', @render
 		@collection.fetch reset: true
 
 	render: =>
-		@$el.html Mustache.render @html, list: @collection.toJSON()
+		@$el.html Mustache.render @template, items: @collection.toJSON()
 		@
 
-	add: ->
-		item = new Item id: @collection.length
-		item.save()
+	add: (event) ->
+		console.log event
+		@collection.create new Item, wait: true
 		@collection.fetch reset: true
 
+	edit: (event) ->
+		id = @$(event.target).parent().data('item')
+		window.location.replace "/#item/#{id}"
+
+	delete: (event) ->
+		item = new Item id: @$(event.target).parent().data('item')
+		item.destroy wait: true
+		@collection.fetch reset: true

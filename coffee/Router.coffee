@@ -3,11 +3,24 @@ class Router extends Backbone.Router
 	routes:
 		"": "items"
 		"item/:id": "item"
+		"login": "login"
+
+	view: null
+
+	initialize: ->
+		$.ajaxSetup {statusCode: {401: -> window.location.replace '/#login'}}
 
 	items: ->
-		view = new ItemsView collection: new Items
-		view.render()
+		@view.undelegateEvents() if @view isnt null
+		@view = new ItemsView collection: new Items
+		@view.render()
 
 	item: (id) ->
-		view = new ItemView model: new Item id: id
-		view.render()
+		@view.undelegateEvents() if @view isnt null
+		@view = new ItemView model: new Item id: id
+		@view.render()
+
+	login: ->
+		@view.undelegateEvents() if @view isnt null
+		@view = new LoginView
+		@view.render()
