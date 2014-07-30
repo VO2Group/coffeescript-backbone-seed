@@ -1,22 +1,19 @@
-fs = require 'fs'
-
-{print} = require 'sys'
+{unlinkSync} = require 'fs'
 {spawn} = require 'child_process'
+{print} = require 'sys'
+
+options = ['-c', '-o', 'js', '-j', 'main.js', 'coffee']
 
 task 'build', 'Build js/main.js from coffee/', ->
-	compile()
+	compile options
 
 task 'watch', 'Watch coffee/ for changes', ->
-	compile true
+	compile ['-w'].concat options
 
 task 'clean', 'Delete js/main.js', ->
-	fs.unlinkSync 'js/main.js'
+	unlinkSync 'js/main.js'
 
-compile = (watch = false) ->
-	options = ['-c', '-o', 'js', '-j', 'main.js', 'coffee']
-	options = ['-w'].concat options if watch
+compile = (options) ->
 	coffee = spawn 'coffee', options
-	coffee.stderr.on 'data', (data) ->
-		process.stderr.write data.toString()
-	coffee.stdout.on 'data', (data) ->
-		print data.toString()
+	coffee.stderr.on 'data', (data) -> process.stderr.write data.toString()
+	coffee.stdout.on 'data', (data) -> print data.toString()

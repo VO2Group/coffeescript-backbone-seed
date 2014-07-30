@@ -10,7 +10,7 @@ class ItemView extends Backbone.View
 		<p>
 			name: <input id="field" type="text" value="{{name}}"/> <button id="save" type="button" class="btn btn-default btn-xs">Save</button>
 		</p>
-		<a href="">Back</a>
+		<a href="#">Back</a>
 		"""
 
 	initialize: ->

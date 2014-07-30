@@ -37,7 +37,7 @@
     };
 
     Router.prototype.items = function() {
-      if (this.view !== null) {
+      if (this.view) {
         this.view.undelegateEvents();
       }
       this.view = new ItemsView({
@@ -47,7 +47,7 @@
     };
 
     Router.prototype.item = function(id) {
-      if (this.view !== null) {
+      if (this.view) {
         this.view.undelegateEvents();
       }
       this.view = new ItemView({
@@ -59,7 +59,7 @@
     };
 
     Router.prototype.login = function() {
-      if (this.view !== null) {
+      if (this.view) {
         this.view.undelegateEvents();
       }
       this.view = new LoginView;
@@ -114,7 +114,7 @@
       'click #save': 'save'
     };
 
-    ItemView.prototype.template = "<h1>Item</h1>\n<p>\n	name: <input id=\"field\" type=\"text\" value=\"{{name}}\"/> <button id=\"save\" type=\"button\" class=\"btn btn-default btn-xs\">Save</button>\n</p>\n<a href=\"\">Back</a>";
+    ItemView.prototype.template = "<h1>Item</h1>\n<p>\n	name: <input id=\"field\" type=\"text\" value=\"{{name}}\"/> <button id=\"save\" type=\"button\" class=\"btn btn-default btn-xs\">Save</button>\n</p>\n<a href=\"#\">Back</a>";
 
     ItemView.prototype.initialize = function() {
       this.model.on('reset change', this.render);
