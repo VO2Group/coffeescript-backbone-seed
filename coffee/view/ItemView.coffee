@@ -1,26 +1,25 @@
 class ItemView extends Backbone.View
 
-	el: 'body'
+	el: '#content'
 
 	events:
 		'click #save': 'save'
 
 	template: """
-		<h1>Item</h1>
-		<p>
-			name: <input id="field" type="text" value="{{name}}"/> <button id="save" type="button" class="btn btn-default btn-xs">Save</button>
-		</p>
-		<a href="#">Back</a>
-		"""
+		name:
+		<input id="name" type="text" value="{{name}}"/>
+		<button id="save" type="button" class="btn btn-default btn-xs">Save</button>
+	"""
 
 	initialize: ->
-		@model.on 'reset change', @render
-		@model.fetch reset: true
+		@model.on 'change', @render
+		@model.fetch()
 
 	render: =>
 		@$el.html Mustache.render @template, @model.toJSON()
 		@
 
 	save: (event) ->
-		@model.set name: @$('#field').val()
+		@model.set name: @$('#name').val()
 		@model.save()
+		window.location.replace '/#'

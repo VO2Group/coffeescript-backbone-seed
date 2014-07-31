@@ -1,6 +1,8 @@
 class ItemsView extends Backbone.View
 
-	el: 'body'
+	el: '#content'
+
+	collection: new Items
 
 	events:
 		'click #add': 'add'
@@ -8,25 +10,22 @@ class ItemsView extends Backbone.View
 		'click .delete': 'delete'
 
 	template: """
-		<h1>List</h1>
-		<p>
-			<button id="add" class="btn btn-default btn-xs">Add</button>
-		</p>
+		<button id="add" class="btn btn-default btn-xs">Add</button>
 		<ul>
 			{{#items}}
 				<li>
-					<p>{{name}}</p>
-					<p data-item="{{id}}">
+					<div data-item="{{id}}">
+						{{name}}
 						<button type="button" class="btn btn-default btn-xs edit">Edit</button>
 						<button type="button" class="btn btn-default btn-xs delete">Delete</button>
-					</p>
+					</div>
 				</li>
 			{{/items}}
 		</ul>
-		"""
+	"""
 
 	initialize: ->
-		@collection.on 'reset', @render
+		@collection.on 'reset add remove', @render
 		@collection.fetch reset: true
 
 	render: =>
@@ -34,15 +33,12 @@ class ItemsView extends Backbone.View
 		@
 
 	add: (event) ->
-		console.log event
-		@collection.create new Item, wait: true
-		@collection.fetch reset: true
+		@collection.add @collection.create new Item, wait: true
 
 	edit: (event) ->
 		id = @$(event.target).parent().data('item')
 		window.location.replace "/#item/#{id}"
 
 	delete: (event) ->
-		item = new Item id: @$(event.target).parent().data('item')
-		item.destroy wait: true
-		@collection.fetch reset: true
+		item = new Item @collection.remove @collection.at @$(event.target).parent().data('item')
+		item.destroy()

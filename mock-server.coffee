@@ -11,17 +11,21 @@ app = express()
 app.use morgan 'combined'
 app.use bodyParser.json()
 app.use bodyParser.urlencoded extended: true
-app.use session {secret: 'This is secret !', resave: true, saveUninitialized: true}
-app.use serveStatic path.join __dirname, '..'
+app.use session secret: 'this is secret', resave: true, saveUninitialized: true
+app.use serveStatic path.join __dirname, '.'
 
 items = [
-	{id: 0, name: "foo"}
-	{id: 1, name: "bar"}
-	{id: 2, name: "baz"}
+	{id: 0, name: 'foo'}
+	{id: 1, name: 'bar'}
+	{id: 2, name: 'baz'}
 ]
 
 check = (req, res, next) ->
 	if not req.session.user then res.status(401).end() else next()
+
+convert = (req, res, next) ->
+	req.params.id = parseInt req.params.id
+	next()
 
 app.post '/login', (req, res, next) ->
 	if req.body.login is 'admin' and req.body.pass is 'admin'
@@ -39,20 +43,20 @@ app.get '/items', check, (req, res, next) ->
 
 app.post '/items', check, (req, res, next) ->
 	if items.length is 0
-		items.push {id: 0, name: req.body.name}
+		items.push id: 0, name: req.body.name
 	else
-		items.push {id: items[..].pop().id + 1, name: req.body.name}
+		items.push id: items[..].pop().id + 1, name: req.body.name
 	res.end()
 
-app.get '/items/:id', check, (req, res, next) ->
-	res.json (item for item in items when item.id is parseInt req.params.id)[0]
+app.get '/items/:id', check, convert, (req, res, next) ->
+	res.json (item for item in items when item.id is req.params.id)[0]
 
-app.put '/items/:id', check, (req, res, next) ->
-	(item for item in items when item.id is parseInt req.params.id)[0].name = req.body.name
+app.put '/items/:id', check, convert, (req, res, next) ->
+	(item for item in items when item.id is req.params.id)[0].name = req.body.name
 	res.end()
 
-app.delete '/items/:id', check, (req, res, next) ->
-	items = (item for item in items when item.id isnt parseInt req.params.id)
+app.delete '/items/:id', check, convert, (req, res, next) ->
+	items = (item for item in items when item.id isnt req.params.id)
 	res.end()
 
 app.listen 8080
