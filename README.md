@@ -40,9 +40,11 @@ POST /login {login: "john", pass: "Doe"}
 
 GET /logout
  -> HTTP 200
+```
 
 The next routes must have a middleware which returns HTTP 401 if the user is not logged:
 
+```
 GET /items
  -> HTTP 200 [{id: 0, name: 'foo'}, {id: 1, name: 'bar'}, {id: 2, name: 'baz'}, ...]
 
