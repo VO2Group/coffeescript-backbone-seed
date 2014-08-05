@@ -3,13 +3,13 @@ coffeescript-backbone-seed
 
 Backbone.js application written in CoffeeScript
 
-# Build requirements:
+## Build requirements:
 
 * coffee-script
 * bower
 * hogan.js
 
-## To install, use:
+### To install, use:
 
 ```ksh
 npm install -g coffee-script
@@ -17,7 +17,7 @@ npm isntall -g bower
 npm install -g hogan.js
 ```
 
-## To build, use:
+### To build, use:
 
 ```ksh
 bower install
@@ -27,17 +27,16 @@ cake compile
 The Cakefile also provides a `watch` task to auto-rebuild the application:
 
 ```ksh
-cake compile
+cake watch
 ```
 
-# Server
+## Server
 
 The server which hosts this application must respond to the following routes:
 
 ```
 POST /login {login: "john", pass: "Doe"}
- -> HTTP 200 if the logging is successful
- -> HTTP 400 otherwize
+ -> HTTP 200
 
 GET /logout
  -> HTTP 200
