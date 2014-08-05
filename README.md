@@ -5,9 +5,9 @@ Backbone.js application written in CoffeeScript
 
 # Build requirements:
 
-	- coffee-script
-	- bower
-	- hogan.js
+* coffee-script
+* bower
+* hogan.js
 
 ## To install, use:
 
@@ -34,6 +34,7 @@ cake compile
 
 The server which hosts this application must respond to the following routes:
 
+```
 POST /login {login: "john", pass: "Doe"}
  -> HTTP 200 if the logging is successful
  -> HTTP 400 otherwize
@@ -57,3 +58,4 @@ PUT /items/:id {id: 42, name: 'bar'}
 
 DELETE /items/:id
  -> HTTP 200
+```
