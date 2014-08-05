@@ -1,10 +1,8 @@
 {
-	"name": "coffee-backbone-seed",
-	"version": "0.1",
-	"main": "index.html",
+	"name": "coffeescript-backbone-seed",
 	"dependencies": {
 		"backbone": "latest",
 		"bootstrap": "latest",
-		"mustache": "latest"
+		"hogan": "latest"
 	}
 }

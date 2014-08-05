@@ -1,5 +1,5 @@
 class Item extends Backbone.Model
 
-	defaults: name: 'default'
-
 	urlRoot: 'items'
+
+	defaults: name: 'default'

@@ -1,0 +1,18 @@
+<div class="row clearfix">
+	<div class="col-md-6 column">
+		<a id="add" href="">Add a new item</a>
+		<table class="table">
+			{{#items}}
+				<tr>
+					<td>
+						{{name}}
+					</td>
+					<td data-item="{{id}}">
+						<button type="button" class="btn btn-default btn-xs edit">Edit</button>
+						<button type="button" class="btn btn-default btn-xs delete">Delete</button>
+					</td>
+				</tr>
+			{{/items}}
+		</table>
+	</div>
+</div>
